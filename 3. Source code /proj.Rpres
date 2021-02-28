@@ -1,0 +1,64 @@
+Movie Recommender
+========================================================
+author: Subramanian Shankar
+date: 11/27/2020
+autosize: true
+
+Introduction
+========================================================
+
+This application was built as part of a deliverable for the course Developing Data Products as part of the Coursera Data Science Specialization.
+
+This application provides the user to get top 20 movies recommended using a Machine Learning algorithm-
+
+1. By Genre- The user can choose the genre from a variety of genres.
+2. By Rating- The user can give ratings to some movies, which will help the algorithm provide a tailored response.
+
+
+Source Code
+========================================================
+
+Source code for ui.R and server.R files are available on the GitHub repo:
+
+https://github.com/ssubramanian90/developingdata/tree/main/3.%20Source%20code%20
+
+
+Ratings Data
+========================================================
+
+The ratings are provided in movies.dat and ratings.dat in "https://liangfgithub.github.io/MovieData/"
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+```{r echo=TRUE}
+ratings = read.csv('ratings.dat',                    sep = ':',                 colClasses = c('integer', 'NULL'),                   header = FALSE)
+colnames(ratings) = c('UserID', 'MovieID', 'Rating', 'Timestamp')
+head(ratings)
+```
+
+Movies Data
+========================================================
+
+The movies are provided in movies.dat and ratings.dat in "https://liangfgithub.github.io/MovieData/"
+
+```{r echo=TRUE}
+movies = readLines(paste0("https://liangfgithub.github.io/MovieData/", 'movies.dat?raw=true'))
+movies = strsplit(movies, split = "::", fixed = TRUE, useBytes = TRUE)
+movies = matrix(unlist(movies), ncol = 3, byrow = TRUE)
+movies = data.frame(movies, stringsAsFactors = FALSE)
+colnames(movies) = c('MovieID', 'Title', 'Genres')
+movies$MovieID = as.integer(movies$MovieID)
+movies$Title = iconv(movies$Title, "latin1", "UTF-8")
+head(movies)
+```
+
+Shiny Application
+========================================================
+
+Shiny Application Web Address https://ssubramanian90.shinyapps.io/project4psl/
+
+
+Thanks!
+========================================================
